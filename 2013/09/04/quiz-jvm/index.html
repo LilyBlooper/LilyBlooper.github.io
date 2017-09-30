@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java,backend,jQuery,microservice,cloud,architecture" />
+  <meta name="keywords" content="Java,JVM," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="enjoy handful of articles &amp; code snippets &amp; experiences">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lily Blooper&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="JVM问题集锦不断更新中。。。 1. JVM了解吗，介绍一下，讲了垃圾回收机制2. Full GC和Minor GC区别，及各自的触发条件3. 说说CMS垃圾回收器，及其适用场景">
+<meta name="keywords" content="Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM问题集">
+<meta property="og:url" content="http://yoursite.com/2013/09/04/quiz-jvm/index.html">
 <meta property="og:site_name" content="Lily Blooper&#39;s Blog">
-<meta property="og:description" content="enjoy handful of articles &amp; code snippets &amp; experiences">
+<meta property="og:description" content="JVM问题集锦不断更新中。。。 1. JVM了解吗，介绍一下，讲了垃圾回收机制2. Full GC和Minor GC区别，及各自的触发条件3. 说说CMS垃圾回收器，及其适用场景">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2015-04-15T23:59:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lily Blooper&#39;s Blog">
-<meta name="twitter:description" content="enjoy handful of articles &amp; code snippets &amp; experiences">
+<meta name="twitter:title" content="JVM问题集">
+<meta name="twitter:description" content="JVM问题集锦不断更新中。。。 1. JVM了解吗，介绍一下，讲了垃圾回收机制2. Full GC和Minor GC区别，及各自的触发条件3. 说说CMS垃圾回收器，及其适用场景">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2013/09/04/quiz-jvm/"/>
 
 
 
 
 
-  <title>Archive | Lily Blooper's Blog</title>
+  <title>JVM问题集 | Lily Blooper's Blog</title>
   
 
 
@@ -163,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -267,311 +269,191 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/09/04/quiz-jvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Richard J. Lee (Lily Blooper)">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/meavatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lily Blooper's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">JVM问题集</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-09-04T23:42:34+08:00">
+                2013-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 7 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/26/CountdownLatch-exp/" itemprop="url">
-              
-                <span itemprop="name">CountdownLatch Example</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-26T15:53:26+08:00"
-              content="2017-09-26" >
-          09-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2014">2014</h2>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2014/03/07/pooling/" itemprop="url">
-              
-                <span itemprop="name">Pooling 技术浅析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-03-07T19:16:44+08:00"
-              content="2014-03-07" >
-          03-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/09/04/quiz-jvm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2013/09/04/quiz-jvm/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2013">2013</h2>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2013/09/04/quiz-jvm/" itemprop="url">
-              
-                <span itemprop="name">JVM问题集</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2013-09-04T23:42:34+08:00"
-              content="2013-09-04" >
-          09-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2012">2012</h2>
-          </div>
-        
-        
+          
 
-        
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2012/08/05/juc-outline/" itemprop="url">
-              
-                <span itemprop="name">Java并发-J.U.C包简介</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2012-08-05T10:14:09+08:00"
-              content="2012-08-05" >
-          08-05
-        </time>
-      </div>
+        </div>
+      </header>
+    
 
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2012/08/01/progress/" itemprop="url">
-              
-                <span itemprop="name">后端工程师如何在技术上定位？</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2012-08-01T09:01:55+08:00"
-              content="2012-08-01" >
-          08-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2012/04/13/threadpool-custom/" itemprop="url">
-              
-                <span itemprop="name">Java ThreadPool - Custom</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2012-04-13T20:22:11+08:00"
-              content="2012-04-13" >
-          04-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2012/04/13/threadpool-given/" itemprop="url">
-              
-                <span itemprop="name">Java ThreadPool - Executors</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2012-04-13T20:22:11+08:00"
-              content="2012-04-13" >
-          04-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        <h2 id="JVM问题集锦"><a href="#JVM问题集锦" class="headerlink" title="JVM问题集锦"></a>JVM问题集锦</h2><p>不断更新中。。。</p>
+<h3 id="1-JVM了解吗，介绍一下，讲了垃圾回收机制"><a href="#1-JVM了解吗，介绍一下，讲了垃圾回收机制" class="headerlink" title="1. JVM了解吗，介绍一下，讲了垃圾回收机制"></a>1. JVM了解吗，介绍一下，讲了垃圾回收机制</h3><h3 id="2-Full-GC和Minor-GC区别，及各自的触发条件"><a href="#2-Full-GC和Minor-GC区别，及各自的触发条件" class="headerlink" title="2. Full GC和Minor GC区别，及各自的触发条件"></a>2. Full GC和Minor GC区别，及各自的触发条件</h3><h3 id="3-说说CMS垃圾回收器，及其适用场景"><a href="#3-说说CMS垃圾回收器，及其适用场景" class="headerlink" title="3. 说说CMS垃圾回收器，及其适用场景"></a>3. 说说CMS垃圾回收器，及其适用场景</h3>
       
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/08/05/juc-outline/" rel="next" title="Java并发-J.U.C包简介">
+                <i class="fa fa-chevron-left"></i> Java并发-J.U.C包简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/03/07/pooling/" rel="prev" title="Pooling 技术浅析">
+                Pooling 技术浅析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -579,6 +461,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -599,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/meavatar.jpg"
@@ -692,6 +594,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM问题集锦"><span class="nav-number">1.</span> <span class="nav-text">JVM问题集锦</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JVM了解吗，介绍一下，讲了垃圾回收机制"><span class="nav-number">1.1.</span> <span class="nav-text">1. JVM了解吗，介绍一下，讲了垃圾回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Full-GC和Minor-GC区别，及各自的触发条件"><span class="nav-number">1.2.</span> <span class="nav-text">2. Full GC和Minor GC区别，及各自的触发条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-说说CMS垃圾回收器，及其适用场景"><span class="nav-number">1.3.</span> <span class="nav-text">3. 说说CMS垃圾回收器，及其适用场景</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -837,11 +755,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
@@ -860,6 +776,18 @@
       <script id="dsq-count-scr" src="https://https-lilyblooper-github-io.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2013/09/04/quiz-jvm/';
+          this.page.identifier = '2013/09/04/quiz-jvm/';
+          this.page.title = 'JVM问题集';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-lilyblooper-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
