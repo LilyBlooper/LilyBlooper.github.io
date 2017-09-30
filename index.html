@@ -569,11 +569,11 @@
 <ol>
 <li>简单情况下，直接利用Executors工具类，选择合适的实现</li>
 </ol>
-<p>这部分可以参考：<a href="">Java线程池-Executors</a></p>
+<p>这部分可以参考：<a href="https://lilyblooper.github.io/2012/04/13/threadpool-given/" target="_blank" rel="external">Java线程池-Executors</a></p>
 <ol>
 <li>自定义，根据业务配置具体的参数，自行调优</li>
 </ol>
-<p>这部分可以参考：<a href="">Java线程池-自定义</a></p>
+<p>这部分可以参考：<a href="https://lilyblooper.github.io/2012/04/13/threadpool-custom/" target="_blank" rel="external">Java线程池-自定义</a></p>
 
           
         
@@ -1225,7 +1225,44 @@
 </ul>
 <h4 id="新任务来了之后的流程"><a href="#新任务来了之后的流程" class="headerlink" title="新任务来了之后的流程"></a>新任务来了之后的流程</h4><p>直接看javadoc怎么说的，已经很详细了：</p>
 <ul>
-<li>核心数和最大线程数：</li>
+<li><p>核心数和最大线程数：<br>ThreadPoolExecutor会根据核心线程数和最大线程数不断调整线程池大小。<br>当新的任务通过 execute()方法提交后：</p>
+<ol>
+<li>当前线程数 &lt; corePoolSize : 会创建一个新线程处理请求，即时有其他的空闲线程</li>
+<li>当前线程数 &gt; corePoolSize 但是队列还没满 -&gt; 任务加入队列<br>队列如果也满了，并且当前线程数 &lt; maximumPoolSize ： 创建一个新线程处理请求</li>
+<li>corePoolSize = maximumPoolSize : 固定大小的线程池</li>
+<li>maximumPoolSize = Integer.MAX_VALUE，线程池处理任意数量的并发任务<br>一般来说，core 和 maximum 的值是构造的时候指定，但也可以通过方法动态调整</li>
+</ol>
+</li>
+<li><p>按需创建<br>默认的话即时核心前程也是有新任务的时候才创建，但是可以通过方法覆盖此策略。</p>
+</li>
+<li><p>创建新的线程<br>通过 ThreadFactory 创建新的线程，不指定就用默认的。<br>创建的线程有相同的 ThreadGroup，优先级，都是非守护线程的状态。<br>提供一个不同的 ThreadFactory ，即可修改这些策略。</p>
+</li>
+<li><p>Keep-alive 时间<br>超过 corePoolSize 的时候，如果有空闲线程，那边就会被终结。之后有需求会重新创建</p>
+</li>
+<li><p>Queuing<br>任何的 BlockingQueue 都可以用来传递、持有提交的任务。</p>
+<ul>
+<li>小于 corePoolSize ，创建新线程，不加到队列</li>
+<li>大于 corePoolSize , 总是加入队列而不是创建新线程</li>
+<li>如果无法加入队列，创建新线程直到达到 maximumPoolSize。超过了则任务被拒<br>主要有3种加入队列的策略：</li>
+<li>SynchronousQueue  （待补充）</li>
+<li>LinkedBlockingQueue （待补充）</li>
+<li>ArrayBlockingQueue （待补充）</li>
+</ul>
+</li>
+<li><p>拒绝任务<br>线程池已经关闭 or 队列和线程全部饱和，会触发任务拒绝处理，默认有4个预置策略</p>
+<ul>
+<li>抛出运行时异常（默认）</li>
+<li>发起execute线程自己执行任务</li>
+<li>直接扔掉</li>
+<li>扔掉最早的任务</li>
+</ul>
+</li>
+<li><p>钩子方法<br>开始和结束执行任务时提供钩子方法。可以做一些：初始化ThreadLocal,统计，加日志等</p>
+</li>
+<li><p>队列维护</p>
+</li>
+<li><p>终结</p>
+</li>
 </ul>
 
           
@@ -1379,7 +1416,16 @@
       
         
           
-            <h2 id="Java-线程池简要-使用Executors"><a href="#Java-线程池简要-使用Executors" class="headerlink" title="Java 线程池简要-使用Executors"></a>Java 线程池简要-使用Executors</h2><h3 id="自定义线程池"><a href="#自定义线程池" class="headerlink" title="自定义线程池"></a>自定义线程池</h3><h4 id="直接看源码，自定义线程池的几个关键参数"><a href="#直接看源码，自定义线程池的几个关键参数" class="headerlink" title="直接看源码，自定义线程池的几个关键参数"></a>直接看源码，自定义线程池的几个关键参数</h4>
+            <h2 id="Java-线程池简要-使用Executors"><a href="#Java-线程池简要-使用Executors" class="headerlink" title="Java 线程池简要-使用Executors"></a>Java 线程池简要-使用Executors</h2><h3 id="直接使用J-U-C包内置的工具方法"><a href="#直接使用J-U-C包内置的工具方法" class="headerlink" title="直接使用J.U.C包内置的工具方法"></a>直接使用J.U.C包内置的工具方法</h3><p>通过javadoc我们发现其实只有4组：<br><img src="http://image-1252931136.cosbj.myqcloud.com/executors-api.png" alt=""><br>通过源码看本质，需要提前了解自定义线程池的方法 <a href="https://lilyblooper.github.io/2012/04/13/threadpool-custom/" target="_blank" rel="external">点这里</a></p>
+<h4 id="1-固定大小的线程池"><a href="#1-固定大小的线程池" class="headerlink" title="1.固定大小的线程池"></a>1.固定大小的线程池</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</div><div class="line">                                  <span class="number">0L</span>, TimeUnit.MILLISECONDS,</div><div class="line">                                  <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本质上，核心和最大线程数一致。缓存队列无限。</p>
+<h4 id="2-单线程线程池"><a href="#2-单线程线程池" class="headerlink" title="2.单线程线程池"></a>2.单线程线程池</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</div><div class="line">           (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</div><div class="line">                                   <span class="number">0L</span>, TimeUnit.MILLISECONDS,</div><div class="line">                                   <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>同上，可以理解为 newFixedThreadPool(1)</p>
+<h4 id="3-可缓存的线程池"><a href="#3-可缓存的线程池" class="headerlink" title="3.可缓存的线程池"></a>3.可缓存的线程池</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</div><div class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</div><div class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>核心线程数0，最大线程数不控制，可能会复用之前创建好的线程。适合短生命周期的异步任务</p>
+<h4 id="4-周期执行的线程池"><a href="#4-周期执行的线程池" class="headerlink" title="4. 周期执行的线程池"></a>4. 周期执行的线程池</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ScheduledExecutorService <span class="title">newScheduledThreadPool</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">new</span> ScheduledThreadPoolExecutor(corePoolSize);</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</div><div class="line">       <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE, <span class="number">0</span>, TimeUnit.NANOSECONDS,</div><div class="line">             <span class="keyword">new</span> DelayedWorkQueue());</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>本质上，核心线程数是指定的，最大不限，核心在于这个缓存队列<br>支持周期执行任务，或者给定间隔后执行</p>
+
           
         
       

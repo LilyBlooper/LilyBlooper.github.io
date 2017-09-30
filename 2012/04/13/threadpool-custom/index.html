@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="Lily Blooper&#39;s Blog">
 <meta property="og:description" content="Java 线程池简要-自定义线程池自定义线程池直接看源码，自定义线程池的几个关键参数123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long keepAliveTime,">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-09-30T05:18:01.758Z">
+<meta property="og:updated_time" content="2017-09-30T06:26:49.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java ThreadPool - Custom">
 <meta name="twitter:description" content="Java 线程池简要-自定义线程池自定义线程池直接看源码，自定义线程池的几个关键参数123456789public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long keepAliveTime,">
@@ -399,7 +399,44 @@
 </ul>
 <h4 id="新任务来了之后的流程"><a href="#新任务来了之后的流程" class="headerlink" title="新任务来了之后的流程"></a>新任务来了之后的流程</h4><p>直接看javadoc怎么说的，已经很详细了：</p>
 <ul>
-<li>核心数和最大线程数：</li>
+<li><p>核心数和最大线程数：<br>ThreadPoolExecutor会根据核心线程数和最大线程数不断调整线程池大小。<br>当新的任务通过 execute()方法提交后：</p>
+<ol>
+<li>当前线程数 &lt; corePoolSize : 会创建一个新线程处理请求，即时有其他的空闲线程</li>
+<li>当前线程数 &gt; corePoolSize 但是队列还没满 -&gt; 任务加入队列<br>队列如果也满了，并且当前线程数 &lt; maximumPoolSize ： 创建一个新线程处理请求</li>
+<li>corePoolSize = maximumPoolSize : 固定大小的线程池</li>
+<li>maximumPoolSize = Integer.MAX_VALUE，线程池处理任意数量的并发任务<br>一般来说，core 和 maximum 的值是构造的时候指定，但也可以通过方法动态调整</li>
+</ol>
+</li>
+<li><p>按需创建<br>默认的话即时核心前程也是有新任务的时候才创建，但是可以通过方法覆盖此策略。</p>
+</li>
+<li><p>创建新的线程<br>通过 ThreadFactory 创建新的线程，不指定就用默认的。<br>创建的线程有相同的 ThreadGroup，优先级，都是非守护线程的状态。<br>提供一个不同的 ThreadFactory ，即可修改这些策略。</p>
+</li>
+<li><p>Keep-alive 时间<br>超过 corePoolSize 的时候，如果有空闲线程，那边就会被终结。之后有需求会重新创建</p>
+</li>
+<li><p>Queuing<br>任何的 BlockingQueue 都可以用来传递、持有提交的任务。</p>
+<ul>
+<li>小于 corePoolSize ，创建新线程，不加到队列</li>
+<li>大于 corePoolSize , 总是加入队列而不是创建新线程</li>
+<li>如果无法加入队列，创建新线程直到达到 maximumPoolSize。超过了则任务被拒<br>主要有3种加入队列的策略：</li>
+<li>SynchronousQueue  （待补充）</li>
+<li>LinkedBlockingQueue （待补充）</li>
+<li>ArrayBlockingQueue （待补充）</li>
+</ul>
+</li>
+<li><p>拒绝任务<br>线程池已经关闭 or 队列和线程全部饱和，会触发任务拒绝处理，默认有4个预置策略</p>
+<ul>
+<li>抛出运行时异常（默认）</li>
+<li>发起execute线程自己执行任务</li>
+<li>直接扔掉</li>
+<li>扔掉最早的任务</li>
+</ul>
+</li>
+<li><p>钩子方法<br>开始和结束执行任务时提供钩子方法。可以做一些：初始化ThreadLocal,统计，加日志等</p>
+</li>
+<li><p>队列维护</p>
+</li>
+<li><p>终结</p>
+</li>
 </ul>
 
       
